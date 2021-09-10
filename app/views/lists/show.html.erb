@@ -1,4 +1,33 @@
-<h2><%= @list.name %></h2>
+<p id="notice"><%= notice %></p>
+
+<div 
+  class="banner">
+  <div class="container">
+    <h1><%= @list.name %></h1>
+  </div>
+</div>
+ 
+<%= link_to 'Add a movie to our list', new_list_bookmark_path(@list) %>
+ 
+<div class="container">
+  <div class="row justify-content-center">
+    <% @list.bookmarks.each do |bookmark| %>
+      <div class="col-4 my-3">
+        <div
+          class="card-category" 
+          style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('<%= bookmark.movie.poster_url %>')"
+        > 
+          <%= bookmark.movie.title %> 
+          <%= bookmark.comment %>
+          <%= link_to '+', bookmark_path(bookmark), method: 'delete', data: { confirm: 'Really?' }, class: 'card-remove-link' %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+
+<br>
 
 <%= link_to 'Edit', edit_list_path(@list) %>
-<%= link_to 'Back', lists_path %>
+<%= link_to "Back", lists_path %>
